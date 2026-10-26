@@ -1,0 +1,14 @@
+[Unit]
+Description=Tuong lua Netfilter: nap module kernel va luat fwctl
+After=local-fs.target
+Before=network-pre.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/sbin/modprobe @MODULE@
+ExecStart=/usr/local/bin/fwctl load /etc/fwctl/rules.conf
+ExecStop=/sbin/rmmod @MODULE@
+
+[Install]
+WantedBy=multi-user.target
